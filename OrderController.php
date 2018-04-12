@@ -56,106 +56,112 @@ class OrderController extends Controller
             'date' => 'required',
 
         ));
+ $item = Warehouse::where('itemName', $request->itemName)->first();
 
-        $item = Warehouse::where('itemName', $request->itemName)->first();
-        if (empty($item)) dd('Warehouse item not found!');
-        //Quantity available in the Warehouse stock is decremented by the quantity being processed in order form.
-        $item->quantityAvailable -= $request->quantity;
-        $item->save();
+        if (empty($item)) dd('Warehouse item not found!'); //Validation -
+        else {
+            $item->quantityAvailable -= $request->quantity;  //Warehouse quantity value decremented by order quantity
+            $item->save();
+        }
 
         $restaurant = Restaurant::where('itemName', $request->itemName)->first();
-        //If the item is mispelt, item will not submit.
+
         if (empty($restaurant)) dd('Restaurant item not found!');
-        $restaurant->quantityAvailable += $request->quantity;
-        $restaurant->save();
-
-
-        //Requests being pulled from the Order for
+        else {
+            $restaurant->quantityAvailable += $request->quantity;
+            $restaurant->save();
+        }
+        //Requests being pulled from the Order form.
         $order = new Order();
         $order->itemName = $request->itemName;
         $order->quantity = $request->quantity;
+        $order->date = $request->date;
         $order->save();
 
-        //WHERE statement which changes the value of the quantity Available in the Warehouse Stock, depending
-        //on the quantity passed in the Order form.
         $item = Warehouse::where('itemName', $request->itemName2)->first();
+
         if (empty($item)) dd('Warehouse item not found!');
-        $item->quantityAvailable -= $request->quantity2;
-        $item->save();
+        else {
+            $item->quantityAvailable -= $request->quantity2;
+            $item->save();
+        }
 
-        //WHERE statement which will change the value of the quantity in the Restaurant stock once an
-        //order has been submitted.
         $restaurant = Restaurant::where('itemName', $request->itemName2)->first();
-        //If the item is mispelt, item will not submit.
-        if (empty($restaurant)) dd('Restaurant item not found!');
-        $restaurant->quantityAvailable += $request->quantity2;
-        $restaurant->save();
 
-        //Requests being pulled from the Order form
+        if (empty($restaurant)) dd('Restaurant item not found!');
+        else {
+            $restaurant->quantityAvailable += $request->quantity2;
+            $restaurant->save();
+        }
         $order = new Order();
         $order->itemName = $request->itemName2;
         $order->quantity = $request->quantity2;
+        $order->date = $request->date;
         $order->save();
 
-        //WHERE statement which changes the value of the quantity Available in the Warehouse Stock, depending
-        //on the quantity needed in the
         $item = Warehouse::where('itemName', $request->itemName3)->first();
         if (empty($item)) dd('Warehouse item not found!');
-        $item->quantityAvailable -= $request->quantity3;
-        $item->save();
+        else {
+            $item->quantityAvailable -= $request->quantity3;
+            $item->save();
+        }
 
-        //If empty statement which will change the value of the quantity in the Restaurant stock once an
         $restaurant = Restaurant::where('itemName', $request->itemName3)->first();
-        //If the item is mispelt, item will not submit.
-        if (empty($restaurant)) dd('Restaurant item not found!');
-        $restaurant->quantityAvailable += $request->quantity3;
-        $restaurant->save();
 
+        if (empty($restaurant)) dd('Restaurant item not found!');
+        else {
+            $restaurant->quantityAvailable += $request->quantity3;
+            $restaurant->save();
+        }
         //Requests being pulled from the Order form
         $order = new Order();
         $order->itemName = $request->itemName3;
         $order->quantity = $request->quantity3;
+        $order->date = $request->date;
         $order->save();
 
-        //WHERE statement which changes the value of the quantity Available in the Warehouse Stock, depending
-        //on the quantity needed in the
         $item = Warehouse::where('itemName', $request->itemName4)->first();
+
         if (empty($item)) dd('Warehouse item not found!');
-        $item->quantityAvailable -= $request->quantity4;
-        $item->save();
-
-        //If empty statement which will change the value of the quantity in the Restaurant stock once an
+        else {
+            $item->quantityAvailable -= $request->quantity4;
+            $item->save();
+        }
         $restaurant = Restaurant::where('itemName', $request->itemName4)->first();
-        //If the item is mispelt, item will not submit.
-        if (empty($restaurant)) dd('Restaurant item not found!');
-        $restaurant->quantityAvailable += $request->quantity4;
-        $restaurant->save();
 
-        //Requests being pulled from the Order form
+        if (empty($restaurant)) dd('Restaurant item not found!');
+        else {
+            $restaurant->quantityAvailable += $request->quantity4;
+            $restaurant->save();
+        }
         $order = new Order();
         $order->itemName = $request->itemName4;
         $order->quantity = $request->quantity4;
+        $order->date = $request->date;
         $order->save();
 
-        //WHERE statement which changes the value of the quantity Available in the Warehouse Stock, depending
-        //on the quantity needed in the
         $item = Warehouse::where('itemName', $request->itemName5)->first();
+
         if (empty($item)) dd('Warehouse item not found!');
+        else {
         $item->quantityAvailable -= $request->quantity5;
         $item->save();
+            }
 
-        //If empty statement which will change the value of the quantity in the Restaurant stock once an
         $restaurant = Restaurant::where('itemName', $request->itemName5)->first();
-        //If the item is mispelt, item will not submit.
-        if (empty($restaurant)) dd('Restaurant item not found!');
-        $restaurant->quantityAvailable += $request->quantity5;
-        $restaurant->save();
 
-        //Requests being pulled from the Order form
+        if (empty($restaurant)) dd('Restaurant item not found!'); //User's order request will not be submitted if a defined Item isn't
+       else {
+           $restaurant->quantityAvailable += $request->quantity5;
+           $restaurant->save();
+       }
+//Order form request
         $order = new Order();
         $order->itemName = $request->itemName5;
         $order->quantity = $request->quantity5;
+        $order->date =$request->date;
         $order->save();
+
 
         {
 
